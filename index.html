@@ -1,0 +1,587 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Ask Ishani — Websites that talk back</title>
+<meta name="description" content="Brand-led websites with a built-in AI assistant that answers your customers in your voice. Worldwide, in English and Hindi.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --cream:#F5EEE6; --linen:#E6D9CB; --rose:#D8A7A1; --red:#8B1E24; --red-deep:#5E1218;
+  --ink:#1F1A17; --muted:#4A3F39; --soft:#6B5D55; --marigold:#F2A43A; --card:#FFFFFF;
+  --on-red:#FFFFFF; --bubble-me:#1F1A17; --on-bubble-me:#F5EEE6; --line:#E6D9CB;
+  --serif:'Instrument Serif', Georgia, 'Times New Roman', serif;
+  --sans:'DM Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --cream:#191513; --linen:#2A221E; --rose:#B7837D; --red:#C8484E; --red-deep:#E2686D;
+    --ink:#F3EBE3; --muted:#CDBFB4; --soft:#B3A497; --card:#241E1B;
+    --bubble-me:#F3EBE3; --on-bubble-me:#191513; --line:#3A302A; color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --cream:#191513; --linen:#2A221E; --rose:#B7837D; --red:#C8484E; --red-deep:#E2686D;
+  --ink:#F3EBE3; --muted:#CDBFB4; --soft:#B3A497; --card:#241E1B;
+  --bubble-me:#F3EBE3; --on-bubble-me:#191513; --line:#3A302A; color-scheme:dark;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:calc(env(safe-area-inset-top,0px) + 80px)}
+body{margin:0;background:var(--cream);color:var(--ink);font-family:var(--sans);font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased}
+img{max-width:100%}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--marigold);outline-offset:3px;border-radius:6px}
+.wrap{max-width:1280px;margin:0 auto;padding:0 28px}
+.serif{font-family:var(--serif);font-weight:400}
+em.hl{font-style:italic;color:var(--red)}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--marigold);display:inline-block;flex:none}
+
+/* nav */
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:60;background:var(--cream)}
+header.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:50;background:color-mix(in srgb,var(--cream) 88%,transparent);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+header.top .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-top:18px;padding-bottom:18px}
+.logo{display:flex;align-items:baseline;gap:6px;text-decoration:none;font-family:var(--serif);font-size:30px;line-height:1}
+.logo i{color:var(--red)}
+nav.links{display:flex;align-items:center;gap:26px;font-size:15px}
+nav.links a{text-decoration:none}
+nav.links a:not(.btn):hover{color:var(--red)}
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:0 26px;border-radius:999px;font-weight:500;text-decoration:none;border:1px solid transparent;cursor:pointer;font:inherit;font-weight:500;transition:transform .2s}
+.btn:hover{transform:translateY(-2px)}
+.btn-dark{background:var(--ink);color:var(--cream)}
+.btn-red{background:var(--red);color:var(--on-red)}
+.btn-line{border-color:var(--ink);color:var(--ink);background:transparent}
+.menu-btn{display:none}
+@media (max-width:860px){
+  nav.links a:not(.btn){display:none}
+}
+
+/* hero */
+.hero{display:flex;flex-wrap:wrap;gap:56px;align-items:flex-end;padding-top:48px;padding-bottom:96px}
+.hero-copy{flex:999 1 540px;min-width:0;display:flex;flex-direction:column;gap:28px}
+.pill{display:inline-flex;align-self:flex-start;align-items:center;gap:10px;border:1px solid var(--ink);border-radius:999px;padding:8px 16px;font-size:14px}
+h1.big{margin:0;font-family:var(--serif);font-weight:400;font-size:clamp(58px,9.4vw,150px);line-height:.92;letter-spacing:-.02em}
+.lede{margin:0;max-width:520px;font-size:19px;color:var(--muted)}
+.ctas{display:flex;flex-wrap:wrap;gap:14px}
+.hero-chat{flex:1 1 320px;max-width:420px;position:relative}
+.sticker{position:absolute;top:-28px;right:-8px;width:92px;height:92px;border-radius:50%;background:var(--rose);color:#1F1A17;transform:rotate(-12deg);display:flex;align-items:center;justify-content:center;text-align:center;font-family:var(--serif);font-style:italic;font-size:17px;line-height:1.05;z-index:2}
+
+/* chat card shared */
+.chat{background:var(--card);border-radius:28px;padding:24px;box-shadow:0 30px 60px -30px rgba(31,26,23,.35);display:flex;flex-direction:column;gap:14px}
+.chat-head{display:flex;align-items:center;justify-content:space-between;gap:12px;padding-bottom:14px;border-bottom:1px solid var(--line)}
+.who{display:flex;align-items:center;gap:12px}
+.avatar{width:44px;height:44px;border-radius:50%;background:var(--red);color:var(--on-red);display:flex;align-items:center;justify-content:center;font-family:var(--serif);font-style:italic;font-size:21px;flex:none}
+.who b{display:block;font-size:16px}
+.who small{display:flex;align-items:center;gap:6px;font-size:13px;color:var(--soft)}
+.online{width:7px;height:7px;border-radius:50%;background:#2E9D5B}
+.msg{max-width:85%;padding:12px 16px;font-size:15px;line-height:1.5;white-space:pre-line;overflow-wrap:anywhere}
+.msg.ish{align-self:flex-start;background:var(--cream);border-radius:18px 18px 18px 4px}
+.msg.me{align-self:flex-end;background:var(--bubble-me);color:var(--on-bubble-me);border-radius:18px 18px 4px 18px}
+.typing{align-self:flex-start;display:flex;gap:5px;padding:15px 16px;background:var(--cream);border-radius:18px}
+.typing span{width:6px;height:6px;border-radius:50%;background:var(--red);animation:blink 1.2s infinite}
+.typing span:nth-child(2){animation-delay:.2s}.typing span:nth-child(3){animation-delay:.4s}
+@keyframes blink{0%,80%,100%{opacity:.25}40%{opacity:1}}
+
+/* marquee */
+.marquee{background:var(--red);color:#F5EEE6;overflow:hidden;padding:22px 0}
+.track{display:flex;gap:48px;width:max-content;animation:scroll 40s linear infinite;font-family:var(--serif);font-style:italic;font-size:30px;white-space:nowrap}
+.track .star{color:var(--marigold);font-style:normal}
+@keyframes scroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* sections */
+section.block{padding:110px 0}
+.sec-head{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:24px;margin-bottom:52px}
+h2.title{margin:0;font-family:var(--serif);font-weight:400;font-size:clamp(42px,5.6vw,82px);line-height:1;letter-spacing:-.01em;max-width:780px}
+.sec-head p{margin:0;max-width:360px;color:var(--muted);font-size:16px}
+.kicker{font-size:15px;color:var(--soft);margin:0 0 12px}
+
+.make{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:22px}
+.make article{border-radius:24px;padding:34px;display:flex;flex-direction:column;gap:16px;min-height:280px}
+.make h3{margin:0;font-family:var(--serif);font-weight:400;font-size:34px;line-height:1.05}
+.make p{margin:0;font-size:16px}
+.m1{background:var(--card)} .m1 p{color:var(--muted)}
+.m2{background:#1F1A17;color:#F5EEE6} .m2 p{color:#D9CFC6}
+.m3{background:var(--rose);color:#1F1A17}
+
+/* packages */
+.packs{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:22px;align-items:stretch}
+.pack{background:var(--card);border-radius:24px;padding:34px;display:flex;flex-direction:column;gap:18px;border:1px solid var(--line)}
+.pack.feat{background:var(--red);color:#FFF;border-color:var(--red)}
+.pack .name{display:flex;justify-content:space-between;align-items:baseline;gap:10px}
+.pack h3{margin:0;font-family:var(--serif);font-weight:400;font-size:40px;line-height:1}
+.tag{font-size:13px;padding:5px 12px;border-radius:999px;background:var(--marigold);color:#1F1A17;font-weight:500}
+.price{font-family:var(--serif);font-size:44px;line-height:1}
+.price small{display:block;font-family:var(--sans);font-size:14px;margin-top:8px;opacity:.85}
+.pack ul{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:10px;font-size:15.5px}
+.pack li{display:flex;gap:10px}
+.pack li::before{content:"";width:6px;height:6px;border-radius:50%;background:currentColor;margin-top:10px;flex:none;opacity:.7}
+.pack .meta{margin-top:auto;padding-top:16px;border-top:1px solid color-mix(in srgb,currentColor 20%,transparent);font-size:14.5px;display:flex;justify-content:space-between;gap:10px}
+.pack.feat .btn{background:#FFF;color:#8B1E24}
+.care{margin-top:22px;border-radius:24px;padding:28px 34px;background:var(--linen);display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:18px}
+.care p{margin:0;max-width:720px;color:var(--muted)}
+.care strong{font-family:var(--serif);font-weight:400;font-size:28px;color:var(--ink);display:block;line-height:1.1;margin-bottom:4px}
+
+/* work */
+.work{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:24px}
+.feature{grid-column:1/-1;display:flex;flex-wrap:wrap;gap:0;border-radius:28px;overflow:hidden;background:var(--card)}
+.saanjh-art{flex:1 1 420px;min-height:440px;position:relative;background:#E9D6C2;overflow:hidden}
+.stripes{position:absolute;inset:0;background:
+  repeating-linear-gradient(90deg,transparent 0 38px,rgba(139,30,36,.85) 38px 44px,transparent 44px 60px,rgba(43,61,107,.75) 60px 63px,transparent 63px 96px);opacity:.9}
+.motif{position:absolute;left:40px;top:40px;width:150px;height:150px;border-radius:50%;background:#F5EEE6;display:flex;align-items:center;justify-content:center;box-shadow:0 20px 40px -20px rgba(0,0,0,.4)}
+.motif span{font-family:var(--serif);font-style:italic;font-size:34px;color:#8B1E24}
+.mini-chat{position:absolute;right:28px;bottom:28px;left:28px;max-width:340px;margin-left:auto;background:#FFF;color:#1F1A17;border-radius:20px;padding:16px;display:flex;flex-direction:column;gap:8px;box-shadow:0 20px 40px -20px rgba(0,0,0,.45);font-size:14px;line-height:1.45}
+.mini-chat .q{align-self:flex-end;background:#1F1A17;color:#F5EEE6;padding:9px 13px;border-radius:14px 14px 4px 14px}
+.mini-chat .a{align-self:flex-start;background:#F5EEE6;padding:9px 13px;border-radius:14px 14px 14px 4px}
+.feature-copy{flex:1 1 380px;padding:44px;display:flex;flex-direction:column;gap:18px}
+.feature-copy h3{margin:0;font-family:var(--serif);font-weight:400;font-size:52px;line-height:1}
+.feature-copy p{margin:0;color:var(--muted)}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chips span{font-size:13.5px;border:1px solid var(--line);border-radius:999px;padding:6px 12px}
+.concept{align-self:flex-start;font-size:13.5px;background:var(--marigold);color:#1F1A17;border-radius:999px;padding:5px 12px;font-weight:500}
+.next-tile{border-radius:28px;border:2px dashed var(--rose);padding:40px;display:flex;flex-direction:column;justify-content:space-between;gap:24px;min-height:240px;text-decoration:none}
+.next-tile h3{margin:0;font-family:var(--serif);font-weight:400;font-size:40px;line-height:1.05}
+.next-tile:hover{background:var(--card)}
+
+/* process */
+.process{background:var(--linen)}
+.convo{display:flex;flex-direction:column;gap:20px;max-width:1000px}
+.convo .me{align-self:flex-end;max-width:560px;background:var(--bubble-me);color:var(--on-bubble-me);padding:18px 22px;border-radius:22px 22px 4px 22px;font-size:18px}
+.convo .ish{align-self:flex-start;max-width:640px;background:var(--card);padding:22px 26px;border-radius:22px 22px 22px 4px}
+.convo .ish h3{margin:0 0 6px;font-family:var(--serif);font-weight:400;font-size:28px}
+.convo .ish h3 em{color:var(--red)}
+.convo .ish p{margin:0;color:var(--muted)}
+
+/* ask ish */
+.ask{display:flex;flex-wrap:wrap;gap:56px;align-items:flex-start}
+.ask-copy{flex:1 1 340px;display:flex;flex-direction:column;gap:18px}
+.ask-copy p{margin:0;max-width:430px;color:var(--muted)}
+.ask .chat{flex:1 1 440px;max-width:640px}
+.log{display:flex;flex-direction:column;gap:12px;min-height:280px;max-height:440px;overflow-y:auto;padding-right:4px}
+.suggest{display:flex;flex-wrap:wrap;gap:8px}
+.suggest button{background:transparent;border:1px solid var(--ink);color:var(--ink);border-radius:999px;padding:0 16px;min-height:44px;font:inherit;font-size:14px;cursor:pointer}
+.suggest button:hover{background:var(--ink);color:var(--cream)}
+.composer{display:flex;gap:10px}
+.composer input{flex:1;min-width:0;min-height:50px;border:1px solid var(--line);background:var(--cream);color:var(--ink);border-radius:999px;padding:0 20px;font:inherit;font-size:16px}
+.composer button.send{width:50px;height:50px;flex:none;border-radius:50%;border:0;background:var(--red);color:var(--on-red);display:flex;align-items:center;justify-content:center;cursor:pointer}
+.composer button.send:disabled{opacity:.5;cursor:default}
+.ghost{background:none;border:1px solid var(--line);border-radius:999px;padding:0 16px;min-height:44px;font:inherit;font-size:13px;color:var(--muted);cursor:pointer}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+/* about */
+.about{display:flex;flex-wrap:wrap;gap:56px;align-items:center}
+.portrait{flex:0 1 380px;aspect-ratio:4/5;border-radius:200px 200px 28px 28px;background:var(--rose);display:flex;align-items:flex-end;justify-content:center;padding:28px;color:#1F1A17;font-family:var(--serif);font-style:italic;font-size:22px;position:relative;overflow:hidden}
+.portrait::before{content:"";position:absolute;width:70%;aspect-ratio:1;border-radius:50%;background:var(--marigold);top:18%;left:15%;opacity:.9}
+.portrait span{position:relative}
+.about-copy{flex:1 1 420px;display:flex;flex-direction:column;gap:20px}
+.about-copy p{margin:0;color:var(--muted);max-width:600px;font-size:18px}
+
+/* footer */
+footer{background:#1F1A17;color:#F5EEE6}
+footer .wrap{padding-top:110px;padding-bottom:44px;display:flex;flex-direction:column;gap:64px}
+.foot-cta{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:36px}
+.foot-cta h2{margin:0;font-family:var(--serif);font-weight:400;font-size:clamp(50px,7vw,112px);line-height:.95;letter-spacing:-.015em;max-width:900px}
+.foot-cta h2 em{color:var(--marigold)}
+.btn-cream{background:#F5EEE6;color:#1F1A17}
+.foot-row{display:flex;flex-wrap:wrap;justify-content:space-between;gap:20px;padding-top:26px;border-top:1px solid #4A3F39;font-size:15px;color:#D9CFC6}
+.foot-row nav{display:flex;flex-wrap:wrap;gap:24px}
+.foot-row a{color:#F5EEE6}
+.foot-row em{font-family:var(--serif);font-size:20px;color:#F5EEE6}
+
+@media (max-width:600px){
+  .wrap{padding:0 20px}
+  section.block{padding:80px 0}
+  .feature-copy{padding:30px}
+  .chat{padding:18px;border-radius:24px}
+  .track{font-size:24px}
+  .sticker{width:76px;height:76px;font-size:15px;top:-22px}
+}
+@media (prefers-reduced-motion: reduce){
+  .track,.typing span{animation:none}
+  html{scroll-behavior:auto}
+  .btn:hover{transform:none}
+}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <a class="logo" href="#top" aria-label="Ask Ishani, home"><i>Ask</i><span>Ishani</span><span class="dot" aria-hidden="true"></span></a>
+    <nav class="links" aria-label="Main">
+      <a href="#make">What I make</a>
+      <a href="#packages">Packages</a>
+      <a href="#work">Work</a>
+      <a href="#process">Process</a>
+      <a href="#ask">Ask Ish</a>
+      <a class="btn btn-dark" href="#contact">Book a call</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+  <!-- HERO -->
+  <div class="wrap hero">
+    <div class="hero-copy">
+      <span class="pill"><span class="dot" aria-hidden="true"></span>AI-powered websites, made with taste</span>
+      <h1 class="big">Got a business?<br>Let’s make it <em class="hl">talk.</em></h1>
+      <p class="lede">Beautiful, brand-led websites with a built-in AI assistant that answers your customers, sounds exactly like you, and works while you sleep. For businesses anywhere in the world.</p>
+      <div class="ctas">
+        <a class="btn btn-red" href="#contact">Start a project</a>
+        <a class="btn btn-line" href="#ask">Chat with Ish first</a>
+      </div>
+    </div>
+    <div class="hero-chat" aria-label="Example conversation with an AI assistant for a spice brand">
+      <div class="sticker" aria-hidden="true">try<br>me</div>
+      <div class="chat">
+        <div class="chat-head">
+          <div class="who"><div class="avatar" aria-hidden="true">Ish</div><div><b>A spice brand’s assistant</b><small>Example of what I build</small></div></div>
+        </div>
+        <div class="msg me">Which masala should I use for a Sunday biryani?</div>
+        <div class="msg ish">Our Biryani Masala, always. Want the family recipe that goes with it? It serves six and takes about an hour.</div>
+        <div class="msg me">Yes please. And do you ship to Pune?</div>
+        <div class="typing" aria-hidden="true"><span></span><span></span><span></span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MARQUEE -->
+  <div class="marquee" aria-hidden="true">
+    <div class="track">
+      <span>“Do you have a slot on Saturday?”</span><span class="star">✶</span>
+      <span>“What’s included in the starter plan?”</span><span class="star">✶</span>
+      <span>“Do you ship to Pune?”</span><span class="star">✶</span>
+      <span>“Kya aap Hindi mein baat kar sakte ho?”</span><span class="star">✶</span>
+      <span>“Can I see your past work?”</span><span class="star">✶</span>
+      <span>“Do you have a slot on Saturday?”</span><span class="star">✶</span>
+      <span>“What’s included in the starter plan?”</span><span class="star">✶</span>
+      <span>“Do you ship to Pune?”</span><span class="star">✶</span>
+      <span>“Kya aap Hindi mein baat kar sakte ho?”</span><span class="star">✶</span>
+      <span>“Can I see your past work?”</span><span class="star">✶</span>
+    </div>
+  </div>
+
+  <!-- WHAT I MAKE -->
+  <section class="block" id="make">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2 class="title">Websites that look the part, <em class="hl">and talk the talk.</em></h2>
+        <p>Every project blends brand strategy, design and an AI assistant trained on your business. Any industry, one standard: it has to feel like you.</p>
+      </div>
+      <div class="make">
+        <article class="m1"><h3>Brand-led websites</h3><p>Strategy first, then design. Editorial layouts, sharp copy, and a site that loads fast and works beautifully on every phone.</p></article>
+        <article class="m2"><h3>An AI assistant with your voice</h3><p>Trained on your products, prices and FAQs. It answers customers, captures leads and books calls, in English or Hindi, in a tone that sounds like you on a good day.</p></article>
+        <article class="m3"><h3>Care that keeps going</h3><p>Monthly updates, fresh content and a smarter assistant over time. Your site grows with your business, not against it.</p></article>
+      </div>
+    </div>
+  </section>
+
+  <!-- PACKAGES -->
+  <section class="block" id="packages" style="padding-top:20px">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2 class="title">Pick your <em class="hl">starting point.</em></h2>
+        <p>Prices are starting points. Every business is different, so we’ll shape the final scope together on a free call.</p>
+      </div>
+      <div class="packs">
+        <article class="pack">
+          <div class="name"><h3>Spark</h3></div>
+          <div class="price">₹20,000<small>or $400 for clients outside India</small></div>
+          <p style="margin:0;color:var(--muted)">For new businesses that want a beautiful start online.</p>
+          <ul>
+            <li>1-page landing website</li>
+            <li>FAQ assistant, up to 30 questions</li>
+            <li>English</li>
+            <li>Mobile-ready with basic SEO</li>
+            <li>1 round of revisions</li>
+          </ul>
+          <div class="meta"><span>Ready in 1–2 weeks</span></div>
+          <a class="btn btn-line" href="#contact">Start with Spark</a>
+        </article>
+        <article class="pack feat">
+          <div class="name"><h3>Signature</h3><span class="tag">Most chosen</span></div>
+          <div class="price">₹45,000<small>or $900 for clients outside India</small></div>
+          <p style="margin:0">For growing brands ready to look and sound their best.</p>
+          <ul>
+            <li>Up to 5 pages</li>
+            <li>AI assistant trained on your products, prices and policies</li>
+            <li>Captures leads and books calls</li>
+            <li>English and Hindi</li>
+            <li>Copy guidance and 2 rounds of revisions</li>
+          </ul>
+          <div class="meta"><span>Ready in 3–4 weeks</span></div>
+          <a class="btn" href="#contact">Start with Signature</a>
+        </article>
+        <article class="pack">
+          <div class="name"><h3>Studio</h3></div>
+          <div class="price">₹90,000<small>or $1,800 for clients outside India</small></div>
+          <p style="margin:0;color:var(--muted)">The full experience, from strategy to a custom assistant.</p>
+          <ul>
+            <li>Up to 10 pages</li>
+            <li>Brand strategy session</li>
+            <li>Custom assistant personality</li>
+            <li>WhatsApp, shop or CRM integrations</li>
+            <li>Analytics and 3 rounds of revisions</li>
+          </ul>
+          <div class="meta"><span>Ready in 5–7 weeks</span></div>
+          <a class="btn btn-line" href="#contact">Start with Studio</a>
+        </article>
+      </div>
+      <div class="care">
+        <div><strong>Care plan, ₹4,000 or $80 a month</strong><p>Updates, small edits and regular retraining so your assistant keeps up as your business changes. Domain and AI running costs are billed at cost, in your name.</p></div>
+        <a class="btn btn-dark" href="#contact">Ask about care</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- WORK -->
+  <section class="block" id="work" style="padding-top:20px">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2 class="title">The work <em class="hl">board.</em></h2>
+        <p>New projects are landing soon. Until then, here’s a concept piece that shows how I think.</p>
+      </div>
+      <div class="work">
+        <article class="feature">
+          <div class="saanjh-art" role="img" aria-label="Concept artwork for Saanjh: block-print stripes with a chat bubble showing the shopping assistant">
+            <div class="stripes"></div>
+            <div class="motif"><span>Saanjh</span></div>
+            <div class="mini-chat" aria-hidden="true">
+              <div class="q">Can I machine-wash the indigo bedsheet?</div>
+              <div class="a">Yes, cold and gentle, inside out. Hand-block prints soften beautifully with every wash.</div>
+              <div class="q">Gift wrap ho sakta hai?</div>
+              <div class="a">Bilkul! Handwritten note bhi add kar sakte hain.</div>
+            </div>
+          </div>
+          <div class="feature-copy">
+            <span class="concept">Concept project</span>
+            <h3>Saanjh</h3>
+            <p>An imagined handmade home-linens label from Jaipur. The idea: a slow, warm website where hand-block prints take centre stage, and an assistant that feels like talking to the maker herself.</p>
+            <p>Shoppers ask about fabric care, sizing and gifting, place custom orders, and switch between English and Hindi mid-conversation, just like real customers do.</p>
+            <div class="chips"><span>Brand-led website</span><span>Shopping assistant</span><span>English and Hindi</span><span>Custom orders</span></div>
+          </div>
+        </article>
+        <a class="next-tile" href="#contact">
+          <span class="kicker" style="margin:0">Next on the board</span>
+          <h3>This spot is saved for <em class="hl">your</em> business.</h3>
+          <span class="btn btn-red" style="align-self:flex-start">Let’s talk</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROCESS -->
+  <section class="block process" id="process">
+    <div class="wrap">
+      <div class="sec-head"><h2 class="title">It starts, obviously, <em class="hl">with a conversation.</em></h2></div>
+      <div class="convo">
+        <div class="me">I have a business. It deserves a better website.</div>
+        <div class="ish"><h3><em>1.</em> Discover</h3><p>Lovely. Tell me who you are, who you serve and what your customers keep asking. We find the story your site should tell.</p></div>
+        <div class="ish"><h3><em>2.</em> Design</h3><p>I shape the look, the words and the flow, and share it early so you can react, tweak and fall in love with it.</p></div>
+        <div class="me">And the chatbot?</div>
+        <div class="ish"><h3><em>3.</em> Teach</h3><p>We train your assistant on your products, prices and policies, and give it a personality that sounds like you.</p></div>
+        <div class="ish"><h3><em>4.</em> Launch</h3><p>We go live, test every answer, and keep improving it with a care plan so it gets sharper every month.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ASK ISH -->
+  <section class="block" id="ask">
+    <div class="wrap ask">
+      <div class="ask-copy">
+        <p class="kicker">Meet Ish</p>
+        <h2 class="title">Don’t read about it. <em class="hl">Ask it.</em></h2>
+        <p>Ish is my assistant, and a live demo of what your customers could get. Ask in English or Hindi. Go on, poke around.</p>
+      </div>
+      <div class="chat" role="region" aria-label="Chat with Ish">
+        <div class="chat-head">
+          <div class="who"><div class="avatar" aria-hidden="true">Ish</div><div><b>Ish</b><small><span class="online" aria-hidden="true"></span>Online, and a little nosy</small></div></div>
+          <button class="ghost" type="button" id="reset">Start over</button>
+        </div>
+        <div class="log" id="log" aria-live="polite"></div>
+        <div class="suggest" id="suggest"></div>
+        <div class="composer">
+          <label class="sr" for="q">Ask Ish a question</label>
+          <input id="q" type="text" placeholder="Ask Ish anything…" autocomplete="off" maxlength="400">
+          <button class="send" id="send" type="button" aria-label="Send">
+            <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="block" id="about" style="padding-top:20px">
+    <div class="wrap about">
+      <div class="portrait" aria-label="Photo of Ishani coming soon" role="img"><span>photo coming soon</span></div>
+      <div class="about-copy">
+        <p class="kicker">Hi, I’m Ishani</p>
+        <h2 class="title">Turning random thoughts into <em class="hl">big ideas.</em></h2>
+        <p>I’m a creative strategist with a curious mind, an eye for aesthetics, and probably way too many ideas running through my head at once. I love turning random thoughts into big ideas, bringing brands to life, and finding the sweet spot between strategy and creativity.</p>
+        <p>I’m drawn to good design, thoughtful storytelling, and all the little details that make something feel just right. Ask Ishani is my little corner of the internet to share what inspires me, explore what excites me, and make room for ideas that deserve to exist.</p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer id="contact">
+  <div class="wrap">
+    <div class="foot-cta">
+      <h2>Your business already has a voice. <em>Let’s give it a website.</em></h2>
+      <a class="btn btn-cream" href="mailto:hello@example.com?subject=Let%E2%80%99s%20talk%20about%20my%20website">Book a free discovery call</a>
+    </div>
+    <div class="foot-row">
+      <nav aria-label="Contact">
+        <a href="mailto:hello@example.com">[YOUR EMAIL]</a>
+        <a href="#contact">[WHATSAPP]</a>
+        <a href="https://instagram.com/askishani" target="_blank" rel="noopener">Instagram</a>
+        <a href="#contact">[LINKEDIN]</a>
+      </nav>
+      <span>Working with businesses worldwide. Talk soon, <em>Ishani</em></span>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var KNOWLEDGE = [
+    "You are Ish, the friendly AI assistant on the website of Ask Ishani, a studio run by Ishani, a creative strategist.",
+    "Ask Ishani makes brand-led websites with a built-in AI assistant (chatbot) trained on the client's business. Works with any industry, worldwide.",
+    "Packages (starting prices):",
+    "- Spark: Rs 20,000 or $400. 1-page landing site, FAQ assistant up to 30 questions, English, mobile-ready, basic SEO, 1 revision round. 1-2 weeks.",
+    "- Signature (most chosen): Rs 45,000 or $900. Up to 5 pages, assistant trained on products/prices/policies, captures leads and books calls, English and Hindi, copy guidance, 2 revision rounds. 3-4 weeks.",
+    "- Studio: Rs 90,000 or $1,800. Up to 10 pages, brand strategy session, custom assistant personality, WhatsApp/shop/CRM integrations, analytics, 3 revision rounds. 5-7 weeks.",
+    "- Care plan: Rs 4,000 or $80 per month for updates, small edits and assistant retraining. Domain and AI running costs are billed at cost in the client's name.",
+    "Process: 1 Discover, 2 Design, 3 Teach the assistant, 4 Launch.",
+    "About Ishani: a creative strategist with a curious mind and an eye for aesthetics, who loves turning random thoughts into big ideas, bringing brands to life, and finding the sweet spot between strategy and creativity. She cares about good design, thoughtful storytelling and the little details.",
+    "Portfolio: new projects coming soon; a concept project called Saanjh (imagined Jaipur home-linens label with a bilingual shopping assistant) is on the site.",
+    "To start: book a free discovery call using the button in the Contact section at the bottom of the page.",
+    "Rules: reply in the language the visitor uses (English, Hindi or Hinglish). Keep replies short (2-4 sentences), warm, a little cheeky, never pushy. Prices are starting points; never promise a final price, custom deadline or discount, suggest a free discovery call instead. If you don't know something, say Ishani will answer it on a call. Never make up clients or results. Plain text only, no markdown."
+  ].join("\n");
+
+  var FAQ = [
+    {q:"What do you actually make?", k:["make","do you do","service","offer","kya karte","kya banate","what do you"],
+     a:"Beautiful, brand-led websites with an AI assistant built in. The assistant is trained on your business, so it answers customers, captures leads and books calls, in a tone that sounds like you."},
+    {q:"How much does it cost?", k:["price","cost","charge","much","rate","budget","kitna","paisa","paise","fees","₹","$"],
+     a:"Packages start at ₹20,000 (or $400) for Spark, ₹45,000 ($900) for Signature, and ₹90,000 ($1,800) for Studio. There’s also an optional care plan at ₹4,000 ($80) a month. Final pricing gets shaped on a free call."},
+    {q:"How long does it take?", k:["long","time","weeks","days","deadline","kitne din","kab tak","fast","quick"],
+     a:"Spark takes 1–2 weeks, Signature 3–4 weeks and Studio 5–7 weeks, from our first conversation to launch."},
+    {q:"Can the chatbot speak Hindi?", k:["hindi","language","bhasha","hinglish"],
+     a:"Haan, bilkul! Signature and Studio assistants chat in both English and Hindi, and they’re happy with Hinglish too."},
+    {q:"What would my brand sound like?", k:["sound","tone","voice","personality","brand"],
+     a:"Tell me what you sell and three words for your vibe. A spice brand might be warm and full of recipe ideas; a BPO might be crisp and reassuring. Ishani designs that personality with you."},
+    {q:"Can I see your work?", k:["work","portfolio","example","project","sample","clients"],
+     a:"New projects are landing soon! For now, scroll up to the work board to see Saanjh, a concept for a Jaipur home-linens label with a bilingual shopping assistant."},
+    {q:"How do I get started?", k:["start","book","call","contact","hire","whatsapp","email","reach","baat"],
+     a:"Easy: tap ‘Book a free discovery call’ at the bottom of the page. You chat with Ishani, share what your business needs, and she suggests the right package."},
+    {q:"Who is Ishani?", k:["ishani","who are you","about","kaun","founder","behind"],
+     a:"Ishani is a creative strategist with a curious mind, an eye for aesthetics and way too many ideas at once. She finds the sweet spot between strategy and creativity, and builds websites with that same care."},
+    {q:"Do you work outside India?", k:["outside","international","worldwide","abroad","usa","uk","dubai","country","global"],
+     a:"Yes! Ask Ishani works with businesses worldwide. Pricing for international clients is in US dollars, and everything happens online."}
+  ];
+  var FALLBACK = "Ooh, good question. That one deserves Ishani herself. Book a free discovery call (button at the bottom of the page) and bring it along?";
+  var GREETING = "Hi, I’m Ish, Ishani’s assistant. Ask me about websites, chatbots, prices, or what your brand might sound like. English ya Hindi, dono chalega!";
+
+  var log = document.getElementById("log");
+  var input = document.getElementById("q");
+  var sendBtn = document.getElementById("send");
+  var suggest = document.getElementById("suggest");
+  var history = [];
+  var busy = false;
+  var sample = null;
+  var aiOff = false;
+
+  function add(role, text){
+    var d = document.createElement("div");
+    d.className = "msg " + (role === "user" ? "me" : "ish");
+    d.textContent = text;
+    log.appendChild(d);
+    log.scrollTop = log.scrollHeight;
+    return d;
+  }
+  function typing(){
+    var t = document.createElement("div");
+    t.className = "typing";
+    t.setAttribute("aria-label","Ish is typing");
+    t.innerHTML = "<span></span><span></span><span></span>";
+    log.appendChild(t); log.scrollTop = log.scrollHeight;
+    return t;
+  }
+  function scripted(q){
+    var s = q.toLowerCase(), best = null, score = 0;
+    FAQ.forEach(function(f){
+      var n = 0; f.k.forEach(function(k){ if (s.indexOf(k) !== -1) n++; });
+      if (n > score){ score = n; best = f; }
+    });
+    if (/^(hi|hey|hello|hii+|namaste|yo)\b/.test(s.trim()) && score === 0) return "Hey hey! What are you curious about: prices, timelines, or what a talking website could do for your business?";
+    return best ? best.a : FALLBACK;
+  }
+  function renderChips(){
+    suggest.innerHTML = "";
+    FAQ.slice(0,5).forEach(function(f){
+      var b = document.createElement("button");
+      b.type = "button"; b.textContent = f.q;
+      b.addEventListener("click", function(){ ask(f.q, f.a); });
+      suggest.appendChild(b);
+    });
+  }
+  function reset(){
+    log.innerHTML = ""; history = [];
+    add("ish", GREETING);
+  }
+  function wait(ms){ return new Promise(function(r){ setTimeout(r, ms); }); }
+
+  async function ask(text, preset){
+    if (busy || !text) return;
+    busy = true; sendBtn.disabled = true;
+    add("user", text);
+    history.push({role:"user", content:text});
+    var t = typing();
+    var answer = null;
+    if (!preset && sample && !aiOff){
+      try {
+        var convo = history.slice(-8).map(function(m){ return (m.role === "user" ? "Visitor: " : "Ish: ") + m.content; }).join("\n");
+        var bubble = null;
+        var res = await sample(KNOWLEDGE + "\n\nConversation so far:\n" + convo + "\n\nWrite Ish's next reply only, with no name prefix.", {
+          modelTier: "quick", cache: false,
+          onText: function(ev){ if (!bubble){ t.remove(); bubble = add("ish", ""); } bubble.textContent = ev.text; log.scrollTop = log.scrollHeight; }
+        });
+        answer = (res && res.text || "").trim();
+        if (answer){ if (!bubble){ t.remove(); add("ish", answer); } else { bubble.textContent = answer; } }
+      } catch (e) {
+        if (e && (e.code === "not_granted")) aiOff = true;
+        answer = null;
+        var stray = log.querySelector(".msg.ish:last-child");
+        if (stray && !stray.textContent) stray.remove();
+      }
+    }
+    if (!answer){
+      answer = preset || scripted(text);
+      await wait(650);
+      if (t.parentNode) t.remove();
+      add("ish", answer);
+    }
+    history.push({role:"assistant", content:answer});
+    busy = false; sendBtn.disabled = false;
+  }
+
+  sendBtn.addEventListener("click", function(){ var v = input.value.trim(); if (v){ input.value = ""; ask(v); } });
+  input.addEventListener("keydown", function(e){ if (e.key === "Enter"){ e.preventDefault(); sendBtn.click(); } });
+  document.getElementById("reset").addEventListener("click", reset);
+
+  renderChips(); reset();
+
+  try {
+    if (window.claude && typeof window.claude.use === "function"){
+      window.claude.use("sample").then(function(s){ sample = s || null; }).catch(function(){ sample = null; });
+    }
+  } catch (e) { sample = null; }
+})();
+</script>
+</body>
+</html>
